@@ -409,23 +409,18 @@
     };
 
     try {
-      if (APPS_SCRIPT_URL === 'TU_URL_DE_APPS_SCRIPT_AQUI') {
-        // DEMO: simular duplicado si el link contiene "test"
-        await new Promise(r => setTimeout(r, 900));
-        if (link.includes('test')) { showAlert('alertDuplicate'); }
-        else { showAlert('alertSuccess'); resetForm(); }
-      } else {
-        const res = await fetch(APPS_SCRIPT_URL, {
-          method: 'POST',
-          body: JSON.stringify(payload)
-        });
-        const data = await res.json();
-        if (data.status === 'duplicate') { showAlert('alertDuplicate'); }
-        else if (data.status === 'ok')   { showAlert('alertSuccess'); resetForm(); }
-        else { throw new Error(data.message || 'Error desconocido'); }
-      }
+      // Usamos no-cors para evitar bloqueos de CORS en Workspace
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload)
+      });
+      // Con no-cors no podemos leer la respuesta, asumimos éxito
+      showAlert('alertSuccess');
+      resetForm();
     } catch(e) {
-      document.getElementById('alertErrorMsg').textContent = e.message || 'Error de conexión. Intenta de nuevo.';
+      document.getElementById('alertErrorMsg').textContent = 'Error de conexión. Intenta de nuevo.';
       showAlert('alertError');
     } finally {
       btn.disabled = false;
