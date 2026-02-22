@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sofía – Solicitud de Cambio de Calificación</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sofimora: #4A25AA;
+    --sofimora-dark: #120C4C;
+    --beige: #FCF7F2;
+    --lavanda: #9280FF;
+    --lavanda-medio: #BBBBFF;
+    --lavanda-claro: #DEDEFF;
+    --verde: #7ACCBE;
+    --verde-claro: #D5F5F0;
+    --amarillo: #F9C98A;
+    --gris-medio: #363254;
+    --gris-claro: #707080;
+    --white: #FFFFFF;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--beige);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+  }
+
+
+
+  .container {
+    position: relative; z-index: 1;
+    width: 100%; max-width: 560px;
+  }
+
+  /* Header */
+  .header {
+    background: var(--sofimora);
+    border-radius: 24px 24px 0 0;
+    padding: 32px 40px 28px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    width: 180px; height: 100px;
+    background: var(--lavanda);
+    border-radius: 100px;
+    right: -40px; bottom: -30px;
+    opacity: .35;
+  }
+
+  .logo-text {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .header-subtitle {
+    font-size: 13px;
+    color: var(--lavanda-claro);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+    font-size: 13px;
+    color: var(--lavanda-claro);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* Card */
+  .card {
+    background: var(--white);
+    border-radius: 0 0 24px 24px;
+    padding: 40px 40px 40px;
+    box-shadow: 0 8px 32px rgba(74, 37, 170, 0.10);
+  }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--sofimora-dark);
+    margin-bottom: 16px;
+  }
+
+  .field-group { margin-bottom: 20px; }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gris-medio);
+    margin-bottom: 6px;
+    letter-spacing: 0.2px;
+  }
+  label .req { color: var(--sofimora); margin-left: 2px; }
+
+  select, input[type="url"], textarea {
+    width: 100%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--sofimora-dark);
+    background: var(--white);
+    border: 1.5px solid #e0daf5;
+    border-radius: 12px;
+    padding: 12px 16px;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+    appearance: none;
+  }
+  select:focus, input[type="url"]:focus, textarea:focus {
+    border-color: var(--sofimora);
+    box-shadow: 0 0 0 3px rgba(74,37,170,0.10);
+    background: var(--white);
+  }
+  select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234A25AA' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px; }
+  textarea { resize: vertical; min-height: 96px; line-height: 1.5; }
+
+  /* Cambio doble */
+  .change-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 8px;
+    align-items: end;
+  }
+  .arrow-icon {
+    display: flex; align-items: center; justify-content: center;
+    padding-bottom: 13px;
+    color: var(--sofimora);
+    font-size: 20px;
+  }
+
+  /* Rango / ICP extras */
+  .extra-fields {
+    display: none;
+    margin-top: 16px;
+    padding: 16px;
+    background: var(--lavanda-claro);
+    border-radius: 12px;
+    gap: 12px;
+  }
+  .extra-fields.visible { display: grid; grid-template-columns: 1fr 1fr; }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: var(--beige);
+    margin: 4px 0;
+  }
+
+  /* Submit */
+  .btn {
+    width: 100%;
+    padding: 15px;
+    background: var(--sofimora);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: background .2s, transform .1s;
+    margin-top: 8px;
+  }
+  .btn:hover { background: var(--sofimora-dark); }
+  .btn:active { transform: scale(.98); }
+  .btn:disabled { opacity: .6; cursor: not-allowed; }
+
+  /* Alerts */
+  .alert {
+    display: none;
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 14px;
+    margin-bottom: 16px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .alert.show { display: flex; align-items: flex-start; gap: 10px; }
+  .alert-warning { background: #FFF3E7; color: #3B280E; border: 1.5px solid var(--amarillo); }
+  .alert-success { background: var(--verde-claro); color: #002A21; border: 1.5px solid var(--verde); }
+  .alert-error   { background: #FFE5E5; color: #5c1111; border: 1.5px solid #f5aaaa; }
+  .alert-icon { font-size: 18px; flex-shrink: 0; }
+
+  /* Footer note */
+  .footer-note {
+    text-align: center;
+    font-size: 12px;
+    color: var(--gris-claro);
+    margin-top: 20px;
+  }
+
+  @media (max-width: 480px) {
+    .card, .header { padding-left: 24px; padding-right: 24px; }
+    .extra-fields.visible { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="header-subtitle" style="font-size:15px;letter-spacing:1px;">Solicitud de cambio de calificación de lead</div>
+  </div>
+
+  <div class="card">
+
+    <!-- Alertas -->
+    <div class="alert alert-warning" id="alertDuplicate">
+      <span class="alert-icon">⚠️</span>
+      <span><strong>Este registro ya existe en la base.</strong> El link de HubSpot que ingresaste ya fue enviado anteriormente. Revisa el Sheet con tu manager antes de volver a enviarlo.</span>
+    </div>
+    <div class="alert alert-success" id="alertSuccess">
+      <span class="alert-icon">✅</span>
+      <span>¡Solicitud enviada! Ya quedó registrada en el Sheet. Recibirás respuesta pronto.</span>
+    </div>
+    <div class="alert alert-error" id="alertError">
+      <span class="alert-icon">❌</span>
+      <span id="alertErrorMsg">Hubo un error al enviar. Intenta de nuevo o contacta a tu manager.</span>
+    </div>
+
+    <div class="section-title">¿Quién solicita?</div>
+
+    <!-- SDR -->
+    <div class="field-group" style="margin-bottom:32px">
+      <label for="sdr">SDR<span class="req">*</span></label>
+      <select id="sdr">
+        <option value="">Selecciona tu nombre</option>
+        <option>Gabriela Prieto</option>
+        <option>Felipe Rivera</option>
+        <option>Paulina Cayón</option>
+        <option>Jair Martinez</option>
+      </select>
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-title">Detalle del lead</div>
+
+    <!-- HubSpot link -->
+    <div class="field-group">
+      <label for="hsLink">Link de HubSpot<span class="req">*</span></label>
+      <input type="url" id="hsLink" placeholder="https://app.hubspot.com/contacts/..." />
+    </div>
+
+    <!-- Cambio de calificación -->
+    <div class="field-group">
+      <label>Cambio solicitado<span class="req">*</span></label>
+      <div class="change-row">
+        <div>
+          <label style="margin-bottom:4px">De</label>
+          <select id="fromStatus">
+            <option value="">Actual</option>
+            <option value="MQL">MQL</option>
+            <option value="NMQL">NMQL</option>
+          </select>
+        </div>
+        <div class="arrow-icon">→</div>
+        <div>
+          <label style="margin-bottom:4px">A</label>
+          <select id="toStatus">
+            <option value="">Nuevo estado</option>
+            <option value="MQL">MQL</option>
+            <option value="NMQL">NMQL</option>
+            <option value="MISMO_RANGO">Misma calificación, cambio de rango/ICP</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--gris-claro);margin-top:10px;line-height:1.5;">
+      💡 Si el lead se queda en la misma calificación, selecciona primero su clasificación actual en <strong style="color:var(--gris-medio)">De</strong> y luego elige <strong style="color:var(--gris-medio)">Misma calificación, cambio de rango/ICP</strong> en <strong style="color:var(--gris-medio)">A</strong>.
+    </p>
+
+    <!-- Campos extra para cambio de rango/ICP -->
+    <div class="extra-fields" id="extraFields">
+      <div>
+        <label for="rangoActual">Rango actual</label>
+        <select id="rangoActual">
+          <option value="">Selecciona</option>
+          <option>Menos de 10</option>
+          <option>10 - 19</option>
+          <option>20 - 49</option>
+          <option>50 - 100</option>
+          <option>101 - 250</option>
+          <option>251 - 500</option>
+          <option>500 - 1,000</option>
+          <option>1,000 o más</option>
+        </select>
+      </div>
+      <div>
+        <label for="rangoNuevo">Rango nuevo</label>
+        <select id="rangoNuevo">
+          <option value="">Selecciona</option>
+          <option>Menos de 10</option>
+          <option>10 - 19</option>
+          <option>20 - 49</option>
+          <option>50 - 100</option>
+          <option>101 - 250</option>
+          <option>251 - 500</option>
+          <option>500 - 1,000</option>
+          <option>1,000 o más</option>
+        </select>
+      </div>
+      <div>
+        <label for="icpActual">ICP actual</label>
+        <select id="icpActual">
+          <option value="">Selecciona</option>
+          <option>Empresa de Tecnología o Startup</option>
+          <option>Industria Creativa</option>
+          <option>Empresas Industriales</option>
+          <option>Consultoría o Servicios Profesionales</option>
+          <option>Trabajo de Oficina, remoto en otras industrias</option>
+          <option>Trabajos Manuales u Operativos</option>
+          <option>Otros</option>
+        </select>
+      </div>
+      <div>
+        <label for="icpChange">ICP nuevo</label>
+        <select id="icpChange">
+          <option value="">Selecciona</option>
+          <option>Empresa de Tecnología o Startup</option>
+          <option>Industria Creativa</option>
+          <option>Empresas Industriales</option>
+          <option>Consultoría o Servicios Profesionales</option>
+          <option>Trabajo de Oficina, remoto en otras industrias</option>
+          <option>Trabajos Manuales u Operativos</option>
+          <option>Otros</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Descripción -->
+    <div class="field-group" style="margin-top:16px">
+      <label for="reason">Justificación<span class="req">*</span></label>
+      <textarea id="reason" placeholder="Describe brevemente por qué este lead debe cambiar de calificación..."></textarea>
+    </div>
+
+    <button class="btn" id="submitBtn" onclick="submitForm()">Enviar solicitud</button>
+    <p class="footer-note">La fecha se registra automáticamente · Los datos van directo a tu Google Sheet</p>
+  </div>
+</div>
+
+<script>
+  // ─── CONFIGURA AQUÍ ───────────────────────────────────────────────
+  const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/sofiasalud.com/s/AKfycbznM_wu5Wvt08jplmV1Ax8w7R9hFnPQ5xBPFwDG-s89rzZkNs0c7leFTu2l0Qe0F2oD/exec';
+  // ──────────────────────────────────────────────────────────────────
+
+  const toStatus = document.getElementById('toStatus');
+  const extraFields = document.getElementById('extraFields');
+
+  toStatus.addEventListener('change', () => {
+    extraFields.classList.toggle('visible', toStatus.value === 'MISMO_RANGO');
+  });
+
+  function showAlert(id) {
+    ['alertDuplicate','alertSuccess','alertError'].forEach(a => {
+      document.getElementById(a).classList.remove('show');
+    });
+    document.getElementById(id).classList.add('show');
+    document.getElementById(id).scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+
+  function getDate() {
+    const d = new Date();
+    return d.toLocaleDateString('es-MX', {day:'2-digit',month:'2-digit',year:'numeric'}) + ' ' +
+           d.toLocaleTimeString('es-MX', {hour:'2-digit',minute:'2-digit'});
+  }
+
+  async function submitForm() {
+    const sdr      = document.getElementById('sdr').value;
+    const link     = document.getElementById('hsLink').value.trim();
+    const from     = document.getElementById('fromStatus').value;
+    const to       = toStatus.value;
+    const reason   = document.getElementById('reason').value.trim();
+
+    // Validación
+    if (!sdr || !link || !from || !to || !reason) {
+      document.getElementById('alertErrorMsg').textContent = 'Por favor completa todos los campos obligatorios.';
+      showAlert('alertError'); return;
+    }
+    if (!link.startsWith('http')) {
+      document.getElementById('alertErrorMsg').textContent = 'El link de HubSpot no parece válido.';
+      showAlert('alertError'); return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+
+    const payload = {
+      fecha: getDate(),
+      sdr, link, from, to, reason,
+      rangoActual: document.getElementById('rangoActual').value || '',
+      rangoNuevo:  document.getElementById('rangoNuevo').value  || '',
+      icpChange:   document.getElementById('icpChange').value   || ''
+    };
+
+    try {
+      if (APPS_SCRIPT_URL === 'TU_URL_DE_APPS_SCRIPT_AQUI') {
+        // DEMO: simular duplicado si el link contiene "test"
+        await new Promise(r => setTimeout(r, 900));
+        if (link.includes('test')) { showAlert('alertDuplicate'); }
+        else { showAlert('alertSuccess'); resetForm(); }
+      } else {
+        const res = await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.status === 'duplicate') { showAlert('alertDuplicate'); }
+        else if (data.status === 'ok')   { showAlert('alertSuccess'); resetForm(); }
+        else { throw new Error(data.message || 'Error desconocido'); }
+      }
+    } catch(e) {
+      document.getElementById('alertErrorMsg').textContent = e.message || 'Error de conexión. Intenta de nuevo.';
+      showAlert('alertError');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Enviar solicitud';
+    }
+  }
+
+  function resetForm() {
+    ['sdr','fromStatus','toStatus','rangoActual','rangoNuevo','icpChange'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('hsLink').value = '';
+    document.getElementById('reason').value = '';
+    extraFields.classList.remove('visible');
+  }
+</script>
+</body>
+</html>
